@@ -10,13 +10,13 @@ const extname = path.extname;
 app.use(async function (ctx) {
   const fpath = path.join(__dirname, ctx.path);
   const fstat = await fs.promises.stat(fpath);
-  console.log('fpath=', fpath)
+  console.log('fpath=', fpath) // 檔案路徑
   if (fstat.isFile()) {
-    let ext = extname(fpath)
-    // console.log('ext=', ext)
+    let ext = extname(fpath) // 檔案副檔名
+    console.log('ext=', ext)
     if (ext === '.md') {
       let md = await fs.promises.readFile(fpath, 'utf8')
-      let html = mdRender(md)
+      let html = mdRender(md) // 函數包括了markdown-it 和html css 的外觀
       ctx.type = '.html'
       ctx.body = html
     } else {
@@ -31,7 +31,7 @@ if (!module.parent) {
   console.log('server run at http://localhost:3000/')
 }
 
-function mdRender(md) { // 用函式使用css美化md
+function mdRender(md) { // 使用css美化md
   return `
 <html>
 <head>

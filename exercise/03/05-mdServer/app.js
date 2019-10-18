@@ -24,6 +24,6 @@ app.use(async function(ctx) {
     }
   }
 })
-console.log('ext=', ext)
+
 app.listen(3000)
 console.log('server run at http://localhost:3000/')

@@ -5,7 +5,8 @@ const app = module.exports = new Koa();
 app.use(async function pageNotFound(ctx) {
   // we need to explicitly set 404 here
   // so that koa doesn't assign 200 on body=
-  ctx.status = 404
+  
+  ctx.status = 404 // 網頁傳回 Not Found
 });
 
 if (!module.parent) app.listen(3000);

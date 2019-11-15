@@ -15,8 +15,8 @@ app.use(async function(ctx) {
     // console.log('ext=', ext)
     if (ext === '.md') {
       let md = await fs.promises.readFile(fpath, 'utf8')
-      let html = mdit.render(md)
-      ctx.type = '.html'
+      let html = mdit.render(md) // convert markdown file to html
+      ctx.type = '.html' // set file type = html
       ctx.body = html
     } else {
       ctx.type = ext

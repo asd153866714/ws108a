@@ -22,7 +22,7 @@ app.use(koaBody({ multipart: true })); // multipart {Boolean} Parse multipart bo
 
 app.use(async function(ctx, next) {
   await next();
-  if (ctx.body || !ctx.idempotent) return 12; // If there is a body or a request is e.g. a POST, it will not return 404
+  if (ctx.body || !ctx.idempotent) return; // If there is a body or a request is e.g. a POST, it will not return 404
   // idempotent method: client發出一次或多次同樣的請求對server的影響結果不變,包括 GET，HEAD，OPTIONS，TRACE及PUT, DELETE。
   ctx.redirect('/404.html'); // or 'ctx.status = 404'
 });

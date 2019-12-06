@@ -23,7 +23,7 @@ app.use(koaStatic('./public'))
 
 // route definitions
 
-router.get('/list', list)
+router.get('/list', list) // 傳回json
   .get('/post/:id', show)
   .post('/post', create)
 

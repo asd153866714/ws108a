@@ -34,7 +34,7 @@ R.list = function (posts) {
   let list = []
   for (let post of posts) {
     list.push(`
-    <li>
+    <li>  
       <h2>${post.title}</h2>
       <p><a id="show${post.id}" href="#show/${post.id}">Read post</a></p>
     </li>

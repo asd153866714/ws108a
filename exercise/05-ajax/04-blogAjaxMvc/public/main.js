@@ -9,6 +9,7 @@ const blog = {
 window.onhashchange = async function () {
   var r
   var tokens = window.location.hash.split('/')
+  console.log('test:',window.location.hash)
   console.log('tokens=', tokens)
   switch (tokens[0]) {
     case '#show':

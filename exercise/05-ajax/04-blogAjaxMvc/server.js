@@ -22,7 +22,10 @@ app.use(koaStatic('./public'))
 
 // route definitions
 
-router.get('/list', list).get('/post/:id', show).post('/post', create)
+router
+.get('/list', list)
+.get('/post/:id', show)
+.post('/post', create)
 
 app.use(router.routes())
 app.use(koaJson())

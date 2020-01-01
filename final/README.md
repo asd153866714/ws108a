@@ -1,7 +1,8 @@
 ## 使用步驟
-
 啟動 mongodb 服務
+
 運行 app.js
+
 在 http://localhost:3000/ 運作
 
 ## 實現功能:

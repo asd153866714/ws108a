@@ -1,7 +1,7 @@
 const M = module.exports = {}
 const mongodb = require('mongodb')
 const MongoClient = mongodb.MongoClient
-const ObjectID = mongodb.ObjectID
+// const ObjectID = mongodb.ObjectID
 const url = 'mongodb://localhost:27017'
 const dbName = 'project'
 var client, db, logins
@@ -30,7 +30,6 @@ M.add = async function (login) {
 
 M.get = async function (Id,Password) {
     let data = await logins.findOne({id:Id, password:Password}) // data 取得資料庫對應的帳密
-    console.log("db user msg:", data)
     return data
 }
 

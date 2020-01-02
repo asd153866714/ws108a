@@ -26,34 +26,38 @@ const CONFIG = {
 app.use(session(CONFIG, app))
 
 router
-.get('/', async (ctx) => { // 問題: 前端無法隨著 userID 改變 登入/登出 圖示
-    let title = 'ejs test'
-    let userid = ctx.session.userID
+.get('/', async (ctx) => { // render要顯示的頁面
+    let userid = session.userID
+    console.log('session.userID:',userid)
     await ctx.render('index',{
-        title, userid
+        userid
     })
 })
 
-.get('/register', async (ctx) => { // ejs 渲染頁面
+.get('/register', async (ctx) => { 
     await ctx.render('register',{})
 })
 
 .post('/register', register)
 
 .get('/login', async (ctx) => {
-    await ctx.render('login',{})
+    await ctx.render('login')
 })
 .post('/login', login)
 
-.get('/error', async (ctx)=> { // 問題: 尋找類似 alert() 的方式, 不用重新切換頁面
-    await ctx.render('error',{})
+.get('/error', async (ctx)=> { // 送出資料有誤，顯示錯誤訊息
+    await ctx.render('error')
 })
 
 .get('/logout',logout)
 
+.get('/cart', async (ctx) =>{
+    await ctx.render('cart')
+})
+
 
 async function register(ctx){
-    const userData = ctx.request.body
+    const userData = ctx.request.body // 取得頁面的資料 (帳號，密碼)
     await M.add(userData)
     ctx.redirect('/')
 }  
@@ -61,8 +65,8 @@ async function register(ctx){
 async function login(ctx){
     let {id, password} = ctx.request.body
     console.log("login()_msg:",id,password)
-    if ( await M.get(id,password) != null){
-        ctx.session.userID = id
+    if ( await M.get(id,password) != null){ // 資料庫確認使用者資料是否存在
+        session.userID = id
         ctx.redirect('/')
         console.log('login success')
     }
@@ -73,7 +77,7 @@ async function login(ctx){
 
 async function logout(ctx){
     console.log("logout test")
-    ctx.session.userId = undefined
+    session.userID = undefined // 清除 session 紀錄的登入資料
     ctx.redirect('/')
 }
 

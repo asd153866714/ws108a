@@ -8,7 +8,7 @@ var client, db, logins
 
 M.open = async function () {
     client = await MongoClient.connect(url,{useUnifiedTopology: true, useNewUrlParser: true})
-    db = await client.db(dbName)
+    db = await client.db(dbName) // 創建名為 'project' 資料庫
     logins = await db.collection('logins') // 創建 db:logins 下的 colletion:login
 }
 
@@ -22,10 +22,8 @@ M.close = async function () {
 
 M.add = async function (login) {
     login.created_at = new Date() // 資料創建日期
-    let r = await logins.insertOne(login)
+    let r = await logins.insertOne(login) // 新增一筆 user 資料
     login._id = r.insertedID
-    console.log('add test:',login)
-    return login
 }
 
 M.get = async function (Id,Password) {
@@ -37,4 +35,4 @@ M.list = async function () {
     var loginList = await logins.find({}).sort({ created_at: -1 }).toArray()
     // console.log('postList = ', postList)
     return loginList
-  }
+}

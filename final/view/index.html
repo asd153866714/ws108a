@@ -12,14 +12,13 @@
             <a href="/cart">購物車</a>
             <a href="/register">註冊</a>
 
-            <% if (userid == null){ %>
+            <% if (userid == undefined){ %>
             <a href="/login">登入</a>   
             <% } else { %>
             <a href="/logout">登出</a>
             <% } %>
 
     </div>
-    <h1><%= title %></h1>
     
 
 </body>

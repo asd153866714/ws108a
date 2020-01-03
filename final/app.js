@@ -4,7 +4,6 @@ var serve = require('koa-static')
 const session = require('koa-session')
 var KoaRouter = require('koa-router')
 var koaLogger = require('koa-logger')
-const koaBody = require('koa-body')
 const views = require('koa-views')
 
 
@@ -13,7 +12,6 @@ const router = new KoaRouter()
 
 app.use(views('view', {map:{html:'ejs'}})) // 使用 ejs midleware(模板引擎) **要放在router啟動之前**
 app.use(koaLogger())
-app.use(koaBody())
 app.use(router.routes())
 app.use(serve(__dirname + '/public'));
 

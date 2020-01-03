@@ -27,7 +27,7 @@ router
 .get('/', async (ctx) => { // render要顯示的頁面
     let userid = session.userID
     console.log('session.userID:',userid)
-    await ctx.render('index',{
+    await ctx.render('index',{ // render index.html
         userid
     })
 })

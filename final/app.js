@@ -20,7 +20,7 @@ const CONFIG = {
   key: 'd**@&(_034k3q3&@^(!$!',
   maxAge: 86400000
 }
-app.use(session(CONFIG, app))
+app.use(session(CONFIG, app)) // session 要放在 router 前面
 
 app.use(router.routes())
 app.use(serve(__dirname + '/public'));
@@ -54,10 +54,6 @@ router
     })
 })
 .post('/login', login)
-
-.get('/error', async (ctx)=> { // 送出資料有誤，顯示錯誤訊息
-    await ctx.render('error')
-})
 
 .get('/logout',logout)
 

@@ -18,7 +18,7 @@ M.add = async function (login) {
     login._id = r.insertedID
 }
 
-M.get = async function (Id,Password) {
-    let data = await logins.findOne({id:Id, password:Password}) // data 取得資料庫對應的帳密
+M.get = async function (Id) {
+    let data = await logins.findOne({id:Id}) // data 取得資料庫對應的帳密
     return data
 }

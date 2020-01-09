@@ -25,7 +25,6 @@ app.use(session(CONFIG, app)) // session 要放在 router 前面
 app.use(router.routes())
 app.use(serve(__dirname + '/public'));
 
-
 router
 .get('/', async (ctx) => { // render要顯示的頁面
     ctx.session.error = undefined
@@ -66,13 +65,13 @@ async function register(ctx){
     const userData = ctx.request.body // 取得頁面的資料 (帳號，密碼)
     console.log("register:",userData)
 
-    if (M.get(userData.id) == null){ // 確認帳號是否重複
+    if (await M.get(userData.id) == null){ // 確認帳號是否重複 **await 確保 M.get()讀取完資料
         console.log("userdata:",M.get(userData.id))
         await M.add(userData)
         console.log("sign up success!")
         ctx.redirect('/')
     }
-    else{
+    else {
         ctx.session.error_r = "帳號已被使用"
         ctx.redirect('/register')
     }

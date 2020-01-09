@@ -1,5 +1,5 @@
 ## 使用說明
-啟動 mongodb 服務
+啟動 mongodb 服務(開啟mongod服務 用mongo查看資料庫)
 
 運行 app.js
 

@@ -1,9 +1,12 @@
-## EJS
-模板繼承
+## EJS 模板引擎
+後端: ctx.render('前端檔案名稱')
 
-<% 程式寫在這裡面%>
-<%=variable%>  顯示出單一變數的內容
-<%- include filename.ejs %> 直接顯示出內容，不做 URL encode 的處理
+前端: 
+<% 程式寫在這裡面 %>
+
+<%= variable %>  顯示出單一變數的內容
+
+<%- include (filename.ejs) %> 直接顯示出內容，不做 URL encode 的處理
 
 ## 購物車
 資料庫使用mongodb 或 LocalStorage

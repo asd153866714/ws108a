@@ -21,8 +21,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel-body">
-					<div class="row" >
+				<div class="panel-body" id="body">
+					<!-- <div class="row" >
 						<div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
 						</div>
 						<div class="col-xs-4">
@@ -36,13 +36,13 @@
 								<input type="text" id="Quantity" class="form-control input-sm" value="1">
 							</div>
 							<div class="col-xs-2">
-								<button type="button" class="btn btn-link btn-xs">
+								<button type="button" class="btn btn-link btn-xs" onclick="removeItem()">
 									<span class="glyphicon glyphicon-trash"> </span>
 								</button>
 							</div>
 						</div>
 					</div>
-					<hr>
+					<hr> -->
 					<div class="row">
 						<div class="text-center">
 							<div class="col-xs-9">
@@ -59,10 +59,10 @@
 				<div class="panel-footer">
 					<div class="row text-center">
 						<div class="col-xs-9">
-							<h4 class="text-right">Total <strong>$50.00</strong></h4>
+							<h4 class="text-right">Total :  <strong id='total'>$50.00</strong></h4>
 						</div>
 						<div class="col-xs-3">
-							<button type="button" class="btn btn-success btn-block">
+							<button type="button" class="btn btn-success btn-block" onclick="clearCart()">
 								Checkout
 							</button>
 						</div>
@@ -75,20 +75,63 @@
 </body>
 
 <script>
-	var productName = document.getElementById('Name').textContent
-	var productPrice = document.getElementById('Price').textContent
-	var productQuantity = document.getElementById('Quantity').value
+
+	let productsId = 0
+	let productTotal = 0
 
 	function showCart(){
 		loadProduct()
-		console.log('test')
 	}
 	
 	function loadProduct(){
-		let cart = JSON.parse(localStorage.getItem('products-0'))
-		console.log(cart,cart.length)
-		productName = cart.Name
-		productPrice = cart.Price
-		productQuantity = cart.Quantity
+
+		let content = ""
+		
+		for(productsId; localStorage.getItem("products-" + productsId); productsId++ ){
+			let cart = JSON.parse(localStorage.getItem("products-"+ productsId))
+			productName = cart.Name
+			productPrice = cart.Price
+			productQuantity = cart.Quantity
+
+			let html = `
+			<div class="row" >
+				<div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+				</div>
+				<div class="col-xs-4">
+					<h4 class="product-name"><strong >${productName}</strong></h4><h4><small>Product description</small></h4>
+				</div>
+				<div class="col-xs-6">
+					<div class="col-xs-6 text-right">
+						<h6><strong >${productPrice} <span class="text-muted">x</span></strong></h6>
+					</div>
+					<div class="col-xs-4">
+						<input type="text" class="form-control input-sm" value="${productQuantity}">
+					</div>
+					<div class="col-xs-2">
+						<button type="button" class="btn btn-link btn-xs" onclick="removeItem()">
+							<span class="glyphicon glyphicon-trash"> </span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<hr>		
+			`
+
+			content += html
+			var Total = productPrice * productQuantity
+			productTotal += Total
+		}
+		document.getElementById('body').innerHTML = content
+		document.getElementById('total').innerHTML = productTotal
+		
+	}
+
+	function removeItem(){
+		localStorage.removeItem('products-'+ productsId)
+
+	}
+	
+	function clearCart(){
+		localStorage.clear()
 	}
 </script>

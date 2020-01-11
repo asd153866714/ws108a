@@ -18,6 +18,7 @@
   "homepage": "https://github.com/asd153866714/ws108a#readme",
   "dependencies": {
     "fs": "0.0.1-security",
+    "jquery": "^3.4.1",
     "koa": "^2.8.2",
     "koa-body": "^4.1.1",
     "koa-json": "^2.0.2",

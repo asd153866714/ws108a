@@ -7,7 +7,6 @@ var koaLogger = require('koa-logger')
 const koaBody = require('koa-body')
 const views = require('koa-views')
 
-
 var app = new Koa()
 const router = new KoaRouter()
 
@@ -58,6 +57,10 @@ router
 
 .get('/cart', async (ctx) =>{
     await ctx.render('cart')
+})
+
+.get('/test',async (ctx) =>{
+    await ctx.render('test')
 })
 
 

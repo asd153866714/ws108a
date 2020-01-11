@@ -21,6 +21,8 @@
         <% } else { %>
         <a href="/logout">登出</a>
         <% } %>
+
+        <a href="/test">ejs繼承</a>
     </div>
     
     <div class="container">
@@ -29,9 +31,12 @@
                 <div class="card" style="width: 18rem;">
                     <img src="https://media.playstation.com/is/image/SCEA/black-friday-week-ps4-ps4pro-tw1119?$native_nt$" class="card-img-top" alt="...">
                     <div class="card-body">
-                    <h5 class="card-title">Ps4</h5>
-                    <p class="card-text">$100</p>
-                    <a href="#" class="btn btn-primary">加入</a>
+                    <h5 class="card-title" id="Name-0">Ps4</h5>
+                    <p class="card-text" id="Price-0">$100</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="數量" id="Quantity-0">
+                    </div>
+                    <a href="#" class="btn btn-primary" onclick="addItemToCart(0)">加入</a>
                     </div>
                 </div>
             </div>
@@ -39,9 +44,12 @@
                 <div class="card" style="width: 18rem;">
                     <img src="https://compass-ssl.xbox.com/assets/05/b0/05b01a46-58eb-4927-ad21-3c43b545ebaf.jpg?n=X1S-2019_Panes-2-Up-1084_111_570x400.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
-                    <h5 class="card-title">Xbox</h5>
-                    <p class="card-text">$200</p>
-                    <a href="#" class="btn btn-primary">加入</a>
+                    <h5 class="card-title" id="Name-1">Xbox</h5>
+                    <p class="card-text" id="Price-1">$200</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="數量" id="Quantity-1">
+                    </div>
+                    <a href="#" class="btn btn-primary" onclick="addItemToCart(1)">加入</a>
                     </div>
                 </div>
             </div>
@@ -49,14 +57,31 @@
                 <div class="card" style="width: 18rem;">
                     <img src="https://www.nintendo.tw/hardware/switch/feature/img/01-hero/local-hero__model-pic.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                    <h5 class="card-title">Switch</h5>
-                    <p class="card-text">$300</p>
-                    <a href="#" class="btn btn-primary">加入</a>
+                    <h5 class="card-title" id="Name-2">Switch</h5>
+                    <p class="card-text" id="Price-2">$300</p>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="數量" id="Quantity-2">
+                    </div>
+                    <a href="#" class="btn btn-primary" onclick="addItemToCart(2)">加入</a>
                     </div>
                 </div>           
             </div>
         </div>
     </div>
+<script>
+    let productsId = 0
 
+    function addItemToCart(productId){
+        var productName = document.getElementById("Name-" + productId).textContent
+        var productPrice = document.getElementById("Price-" + productId).textContent
+        var productQuantity = document.getElementById("Quantity-" + productId).value
+
+        let products = []
+        products.push({'Id': productsId, 'Name': productName, 'Price': productPrice, 'Quantity': productQuantity })
+        localStorage.setItem('products-' + productsId, JSON.stringify(products))
+        productsId ++
+        console.log('add success', JSON.stringify(products))  
+    }
+</script>
 </body>
 </html>

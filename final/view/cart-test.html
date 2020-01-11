@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>  
+<head>  
+<meta charset="utf-8">  
+<title>huanglw筆記之web storage</title>  
+<link type="text/css" rel="stylesheet" href="demo.css"
+</head>  
+<body>  
+<h3>huanglw學習筆記--JavaScript localStorage實現簡單購物車</h3>
+<div id="addgoods_Div"> 
+<div id = "add_frame">
+<label for="price">商 品：</label>  
+<input type="text" id="price" name="price" class="text"/>  
+<br/>  
+<label for="goods">價 格：</label>  
+<input type="text" id="goods" name="goods"/>
+<input id = "btn1" type="button" onclick="save()" value="新增商品"/> 
+</div>
+</div>
+<br/>
+<div id="search_goods">
+<label for="search_phone">輸入商品名稱：</label>  
+<input type="text" id="search_price" name="search_price"/>  
+<input id = "btn2" type="button" onclick="find()" value="查詢購物車商品"/>  
+<p id="find_result"><br/></p>  
+</div>  
+<br/>  
+<div id="list">  
+</div>  
+<script>
+// 載入所有儲存在localStorage的資料
+loadAll();     
+//儲存資料  
+function save(){  
+var goods = document.getElementById("goods").value;  
+var price = document.getElementById("price").value;  
+localStorage.setItem(price, goods);
+loadAll();        
+alert("新增成功");
+}
+//查詢資料  
+function find(){  
+var search_price = document.getElementById("search_price").value;  
+var price = localStorage.getItem(search_price);  
+var find_result = document.getElementById("find_result");  
+find_result.innerHTML = search_price   "的價格是："   price;  
+}
+//將所有儲存在localStorage中的物件提取出來，並展現到介面上
+function loadAll(){  
+var list = document.getElementById("list");  
+if(localStorage.length>0){  
+var result = "<table>";  
+result  = "<tr><td>商品</td><td>價格</td><td>操作</td></tr>";  
+for(var i=0;i<localStorage.length;i  ){  
+var price = localStorage.key(i);  
+var goods = localStorage.getItem(price);  
+result  = "<tr><td>" price "</td><td>" goods "</td><td><button id = 'btn3' onclick='deleteGoods(this)'>刪除</button></td></tr>";  
+}  
+result  = "</table><br/><strong><label>總價格：</label><span id='amount'></span></strong>";  
+list.innerHTML = result;  
+}else{  
+list.innerHTML = "購物車空空如也哦……";  
+}  
+//每次載入商品資訊同時重新整理總價格
+Count();
+}      
+//刪除購物車商品
+function deleteGoods(item){
+var val = item.parentNode.parentNode;
+var children1 = val.children[0].innerText;
+var children2 = val.children[1].innerText;
+localStorage.removeItem(children1);
+loadAll();    
+}
+//計算總價
+function Count(){
+var goodsNum = document.getElementsByTagName('tr');
+var amount = 0;
+for(var i=1; i < goodsNum.length; i  ){
+//alert(parseInt(goodsNum[i].children[1].innerText));
+//amount  = parseInt(goodsNum[i].children[1].innerText);
+amount  = parseInt(goodsNum[i].children[1].innerText);
+}
+//alert("總價是：" amount);
+//alert("amount.toString:" amount.toString());
+document.getElementById('amount').innerHTML = amount;
+}
+</script>
+</body>  
+</html>

@@ -82,7 +82,7 @@
             Price : productPrice,
             Quantity : productQuantity
         }
-        // products.push({'Id': productsId, 'Name': productName, 'Price': productPrice, 'Quantity': productQuantity })
+        
         localStorage.setItem('products-' + productsId, JSON.stringify(products))
         productsId ++
         console.log('add success', products)  

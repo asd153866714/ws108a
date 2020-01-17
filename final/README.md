@@ -12,12 +12,16 @@
 
 2.登入 / 登出
 
+3.購物車
+
 ## 使用技術
 1.http 架構下的 koa 框架 (koa-session, koa-router, koa-logger, koa-static )
 
 2.ejs engine (koa-views)
 
-3.mongodb 
+3.mongodb
+
+4.儲存在瀏覽器的localStorage 
 
 ## 檔案位置
 app.js 為後端主程式

@@ -21,7 +21,7 @@
 
 3.mongodb
 
-4.儲存在瀏覽器的localStorage 
+4.儲存在瀏覽器的 localStorage 
 
 ## 檔案位置
 app.js 為後端主程式

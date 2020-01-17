@@ -26,7 +26,7 @@ app.use(serve(__dirname + '/public'));
 
 router
 .get('/', async (ctx) => { // render要顯示的頁面
-    ctx.session.error = undefined
+    ctx.session.error_l = undefined
     ctx.session.error_r = undefined
     
     let userid = ctx.session.userID
@@ -46,7 +46,7 @@ router
 .post('/register', register)
 
 .get('/login', async (ctx) => {
-    let message = ctx.session.error
+    let message = ctx.session.error_l
     await ctx.render('login',{
         message
     })
@@ -56,11 +56,11 @@ router
 .get('/logout',logout)
 
 .get('/cart', async (ctx) =>{
-    await ctx.render('cart')
-})
-
-.get('/test',async (ctx) =>{
-    await ctx.render('test')
+    let userid = ctx.session.userID
+    console.log('ctx.session.userID:',userid)
+    await ctx.render('cart',{ // render index.html
+        userid
+    })
 })
 
 
@@ -90,18 +90,18 @@ async function login(ctx){
 
         if (find_login.password == password){ // 確認密碼
             ctx.session.userID = id
-            ctx.session.error = undefined
+            ctx.session.error_l = undefined
             console.log('login success')
             ctx.redirect('/')
         }
 
         else {
-            ctx.session.error = "密碼錯誤"
+            ctx.session.error_l = "密碼錯誤"
             ctx.redirect('/login')
         }
     }
     else {
-        ctx.session.error = "用戶不存在"
+        ctx.session.error_l = "用戶不存在"
         ctx.redirect('/login')
     }
 }

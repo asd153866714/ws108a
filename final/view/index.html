@@ -10,12 +10,12 @@
 
 </head>
 <body>
-    
     <div class="nav">
         <a href="/">首頁</a>
         <a href="/cart">購物車</a>
         <a href="/register">註冊</a>
 
+        <!-- 登入/登出 圖示隨著userID狀態改變 -->
         <% if (userid == undefined){ %>
         <a href="/login">登入</a>   
         <% } else { %>
@@ -69,9 +69,21 @@
         </div>
     </div>
 <script>
-    let productsId = 0
+    // 新增紀錄商品排序的 productsId
+    var productsId = 0
 
-    function addItemToCart(productId){
+    if (localStorage.getItem('productsId') != undefined){
+    var productsId = localStorage.getItem('productsId')
+    console.log('id:',productsId)
+    }
+    else{
+    var productsId = 0
+    console.log('count test 0')
+    }
+
+
+    // 新增商品到購物車
+    function addItemToCart(productId){ 
         var productName = document.getElementById("Name-" + productId).textContent
         var productPrice = document.getElementById("Price-" + productId).textContent
         var productQuantity = document.getElementById("Quantity-" + productId).value
@@ -82,11 +94,13 @@
             Price : productPrice,
             Quantity : productQuantity
         }
-        
-        localStorage.setItem('products-' + productsId, JSON.stringify(products))
-        productsId ++
-        console.log('add success', products)  
+
+        localStorage.setItem('products-' + productsId, JSON.stringify(products)) // 轉換為 JSON 格式
+        productsId ++ 
+        localStorage.setItem('productsId', productsId)
     }
+
+
 </script>
 </body>
 </html>

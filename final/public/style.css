@@ -1,9 +1,8 @@
-body{
-    margin:0
-}
+
 .nav {
     overflow: hidden;
     background-color:rgb(0, 0, 0);
+    justify-content: center;
 }
 
 .nav a {
@@ -15,11 +14,25 @@ body{
     text-decoration: none;
 }
 
-.nav a:hover {
-    background-color: #612;
+.sidebar {
+    border: 1px solid rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-    margin:200px;
+.sidebar li {
+    background-color: black;
+    padding: 8px;
+    position: relative;
+    color:white;
+}
+
+.sidebar li:hover {
+    background-color: black;
+    cursor:pointer;
+    transform : scale(0.9);
 }
 

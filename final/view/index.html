@@ -10,63 +10,82 @@
 
 </head>
 <body>
-    <div class="nav">
-        <a href="/">首頁</a>
-        <a href="/cart">購物車</a>
-        <a href="/register">註冊</a>
+    <div>
+        <div class="nav">
+            <a href="/">首頁</a>
+            <a href="/cart">購物車</a>
+            <a href="/register">註冊</a>
 
-        <!-- 登入/登出 圖示隨著userID狀態改變 -->
-        <% if (userid == undefined){ %>
-        <a href="/login">登入</a>   
-        <% } else { %>
-        <a href="/logout">登出</a>
-        <% } %>
-
-    </div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">              
-                <div class="card" style="width: 18rem;">
-                    <img src="https://media.playstation.com/is/image/SCEA/black-friday-week-ps4-ps4pro-tw1119?$native_nt$" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title" id="Name-0">Ps4</h5>
-                    <p class="card-text" id="Price-0">100</p>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="數量" id="Quantity-0">
-                    </div>
-                    <a href="#" class="btn btn-primary" onclick="addItemToCart(0)">加入</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://compass-ssl.xbox.com/assets/05/b0/05b01a46-58eb-4927-ad21-3c43b545ebaf.jpg?n=X1S-2019_Panes-2-Up-1084_111_570x400.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title" id="Name-1">Xbox</h5>
-                    <p class="card-text" id="Price-1">200</p>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="數量" id="Quantity-1">
-                    </div>
-                    <a href="#" class="btn btn-primary" onclick="addItemToCart(1)">加入</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://www.nintendo.tw/hardware/switch/feature/img/01-hero/local-hero__model-pic.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                    <h5 class="card-title" id="Name-2">Switch</h5>
-                    <p class="card-text" id="Price-2">300</p>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="數量" id="Quantity-2">
-                    </div>
-                    <a href="#" class="btn btn-primary" onclick="addItemToCart(2)">加入</a>
-                    </div>
-                </div>           
-            </div>
+            <!-- 登入/登出 圖示隨著userID狀態改變 -->
+            <% if (userid == undefined){ %>
+            <a href="/login">登入</a>   
+            <% } else { %>
+            <a href="/logout">登出</a>
+            <% } %>
         </div>
     </div>
+
+    <div style="display: flex; margin:80px 100px;">
+        <!-- Sidebar -->
+        <aside style="width: 10%">
+            <ul class="sidebar">
+                <li>Home</li>
+                <li>Products</li>
+                <li>About</li>
+                <li>Patterns </li>
+            </ul>
+        </aside>
+
+        <!-- Main -->
+        <main style="
+            /* Take the remaining width */
+            flex: 2;
+
+            /* Make it scrollable */
+
+            padding-left: 80px;
+        ">
+
+                <div class="row">         
+                    <div class="card" style="width: 15rem; margin: 10px;" >
+                        <img src="https://media.playstation.com/is/image/SCEA/black-friday-week-ps4-ps4pro-tw1119?$native_nt$" class="card-img-top" alt="..." style=" height: 250px;">                    
+                        <div class="card-body" style="width: 100%;">
+                            <h5 class="card-title" id="Name-0">Ps4</h5>
+                            <p class="card-text" id="Price-0">100</p>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="數量" id="Quantity-0">
+                            </div>
+                            <a href="#" class="btn btn-primary" onclick="addItemToCart(0)">加入</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 15rem; margin: 10px;">
+                        <img src="https://compass-ssl.xbox.com/assets/05/b0/05b01a46-58eb-4927-ad21-3c43b545ebaf.jpg?n=X1S-2019_Panes-2-Up-1084_111_570x400.jpg" class="card-img-top" alt="..." style="height: 250px;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="Name-1">Xbox</h5>
+                            <p class="card-text" id="Price-1">200</p>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="數量" id="Quantity-1">
+                            </div>
+                            <a href="#" class="btn btn-primary" onclick="addItemToCart(1)">加入</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 15rem; margin:10px">
+                        <img src="https://www.nintendo.tw/hardware/switch/feature/img/01-hero/local-hero__model-pic.png" class="card-img-top" alt="..." style=" height: 250px;">
+                        <div class="card-body">
+                            <h5 class="card-title" id="Name-2">Switch</h5>
+                            <p class="card-text" id="Price-2">300</p>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="數量" id="Quantity-2">
+                        </div>
+                        <a href="#" class="btn btn-primary" onclick="addItemToCart(2)">加入</a>
+                        </div>
+                    </div>
+                </div>                 
+
+
+        </main>
+    </div>
+    
 <script>
     // 新增紀錄商品排序的 productsId
     var productsId = 0

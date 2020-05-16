@@ -6,18 +6,30 @@
 
 接著請啟動命令列，然後在目前資料夾下建立資料庫路徑 db ，接著輸入下列指令。
 
-`
+```
 D:\>mkdir db
 
 D:\db>mongod --dbpath db
-`
+```
 
-# 設定資料庫存放位置
+此時 mongodb 伺服器就會啟動完成此時
 
-``` shell
 
-PS D:\110713305\ws\code\07-mongodb\db> mkdir db  
+```
+D:\db>mongo
+MongoDB shell version: 3.0.2
+connecting to: test
+```
 
-# 預設為系統資料夾，修改為 db 資料夾
-PS D:\110713305\ws\code\07-mongodb\db> mongod --dbpath db
+# 指令
+
+```
+show.dbs
+
+use test
+
+```
+
+參考 : https://gitlab.com/ccckmit/course/-/wikis/%E9%99%B3%E9%8D%BE%E8%AA%A0/%E6%9B%B8%E7%B1%8D/%E7%B6%B2%E7%AB%99%E8%A8%AD%E8%A8%88/mongodbUse
+
 

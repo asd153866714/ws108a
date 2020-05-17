@@ -1,4 +1,4 @@
-const M = require('./model')
+const U = require('./user')
 const Koa = require('koa')
 var serve = require('koa-static')
 const session = require('koa-session')
@@ -55,7 +55,7 @@ router
 
 .get('/logout',logout)
 
-.get('/cart', async (ctx) =>{
+.get('/cart', async (ctx) => {
     let userid = ctx.session.userID
     console.log('ctx.session.userID:',userid)
     await ctx.render('cart',{ // render index.html
@@ -63,45 +63,61 @@ router
     })
 })
 
+.get('/user_data',async (ctx) =>{
+    let data = U.get('bill')
+    console.log(data)
+    await ctx.render('user_data',{
+        data
+    })
+})
+
 
 async function register(ctx){
     const userData = ctx.request.body // 取得頁面的資料 (帳號，密碼)
-    console.log("register:",userData)
+    let data = await U.get(userData.id)
+    console.log(userData.id)
+    if (userData.id && userData.password != "" ){
 
-    if (await M.get(userData.id) == null){ // 確認帳號是否重複 **await 確保 M.get()讀取完資料
-        console.log("userdata:",M.get(userData.id))
-        await M.add(userData)
-        console.log("sign up success!")
-        ctx.redirect('/')
+        if (data == null){ // 確認帳號是否重複
+            await U.add(userData)
+            console.log("sign up success!")
+            ctx.redirect('/')
+        }
+        else {
+            ctx.session.error_r = "帳號已被使用"
+            ctx.redirect('/register')
+        }
     }
     else {
-        ctx.session.error_r = "帳號已被使用"
+        ctx.session.error_r = "帳號或密碼不能為空白"
         ctx.redirect('/register')
     }
 }  
 
 async function login(ctx){
     let {id, password} = ctx.request.body
-    console.log("login()_msg:",id,password)
+    let find_login =  await U.get(id)
 
-    let find_login =  await M.get(id)
-
-    if (find_login != null){ // 確認使用者資料是否存在
-
-        if (find_login.password == password){ // 確認密碼
-            ctx.session.userID = id
-            ctx.session.error_l = undefined
-            console.log('login success')
-            ctx.redirect('/')
+    if (id && password != ""){
+        if (find_login != null){ // 確認使用者資料是否存在
+            if (find_login.password == password){ // 確認密碼
+                ctx.session.userID = id
+                ctx.session.error_l = undefined
+                console.log('login success')
+                ctx.redirect('/')
+            }           
+            else {
+                ctx.session.error_l = "密碼錯誤"
+                ctx.redirect('/login')
+            }
         }
-
         else {
-            ctx.session.error_l = "密碼錯誤"
+            ctx.session.error_l = "用戶不存在"
             ctx.redirect('/login')
         }
     }
     else {
-        ctx.session.error_l = "用戶不存在"
+        ctx.session.error_l = "帳號或密碼不可為空白"
         ctx.redirect('/login')
     }
 }
@@ -112,10 +128,15 @@ async function logout(ctx){
     ctx.redirect('/')
 }
 
+// async function find(ctx){
+//     let data = U.find()
+//     ctx.body = data
+// }
+
 async function main() {
-    await M.open()
+    await U.open()
     app.listen(3000)
-    console.log("server run at http://localhost:3000/")
+    console.log("server run at http://localhost:3000")
 }
 
 main()

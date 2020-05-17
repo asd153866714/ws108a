@@ -1,0 +1,93 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+<div id="app">
+    <div v-if="books.length>0">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>商品名稱</th>
+                    <th>價格</th>
+                    <th>購買數量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in books">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{getFinalPrice(item.price)}}</td> 
+                    <td>
+                        <button @click="sub(index)" v-bind:disabled="item.count<=1">-</button>
+                        <input type="number" v-model="item.count" style="width:60px">
+                        <!-- {{item.count}} -->
+                        <button @click="add(index)">+</button>
+                    </td>
+
+                    <td>
+                        <button @click="del(index)">移除</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>總價</th>
+                    <th colspan="5">{{getTotalPrice}}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div v-else style="padding:15px;background-color: #e9e9e9;">
+        對不起，購物車空空如也
+    </div>
+</div>
+
+<script>
+    const vue = new Vue({
+            el: '#app',
+            data: {
+                books: [
+                    { id: 1, name: '《算法導論》', date: '2006-9', price: 85.00, count: 1 },
+                    { id: 2, name: '《UNIX編程藝術》', date: '2006-2', price: 59.00, count: 1 },
+                    { id: 3, name: '《編程珠璣》', date: '2008-10', price: 39.00, count: 1 },
+                    { id: 4, name: '《代碼大全》', date: '2006-3', price: 128.00, count: 1 },
+                ]
+            },
+            methods: {
+                // 使用方法進行出來價格
+                getFinalPrice(price) {
+                    return '￥' + price;
+                },
+                add(index) {
+                    this.books[index].count++;
+                },
+                sub(index) {
+                    this.books[index].count--;
+                },
+                del(index) {
+                    this.books.splice(index, 1);
+                }
+            },
+            computed: {
+                getTotalPrice() {
+                    let total = 0;
+                    // 方式1 
+                    // total = this.books.reduce((temp, item) => {
+                    //     return temp + item.price * item.count;
+                    // }, 0)
+
+                    // 方式2 for(let i in this.books) 
+                    for(let i in this.books){
+                        total += this.books[i].price*this.books[i].count;
+                    }
+
+                    // // 方式3 for(let item of this.books)
+                    // for(let item of this.books){
+                    //     total += item.price*item.count;
+                    // }
+
+
+                    return this.getFinalPrice(total)
+                }
+            }
+        })
+</script>

@@ -4,6 +4,6 @@
 
 # fetch API
 
-https://wcc723.github.io/javascript/2017/12/28/javascript-fetch/
+* 鐵人賽：ES6 原生 Fetch 遠端資料方 -- https://wcc723.github.io/javascript/2017/12/28/javascript-fetch/
 
-https://leahlin912.github.io/2019/04/08/JS-%E4%BD%BF%E7%94%A8API%E4%B8%B2%E6%8E%A5%E5%85%AC%E9%96%8B%E7%AC%AC%E4%B8%89%E6%96%B9%E8%B3%87%E6%BA%90/#%E6%88%90%E6%9E%9C
+* JavaScript-使用API串接公開第三方資源 -- https://leahlin912.github.io/2019/04/08/JS-%E4%BD%BF%E7%94%A8API%E4%B8%B2%E6%8E%A5%E5%85%AC%E9%96%8B%E7%AC%AC%E4%B8%89%E6%96%B9%E8%B3%87%E6%BA%90/#%E6%88%90%E6%9E%9C

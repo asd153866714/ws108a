@@ -19,7 +19,7 @@
 					<div class="panel-title">
 						<div class="row">
 							<div class="col-xs-6">
-								<h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+								<h5><span class="glyphicon glyphicon-shopping-cart"></span> <%= userid %> 的購物車</h5>
 							</div>
 							<div class="col-xs-6">
 								<button type="button" class="btn btn-primary btn-sm btn-block" onclick="location.href = '/'">
@@ -38,7 +38,7 @@
 				<div class="panel-footer">
 					<div class="row text-center">
 						<div class="col-xs-9">
-							<h4 class="text-right">Total :  <strong id='total'>$00.00</strong></h4>
+							<h4 class="text-right">總金額 :  <strong id='total'>0</strong></h4>
 						</div>
 						<div class="col-xs-3">
 							<button type="button" class="btn btn-success btn-block" onclick="clearCart()">
@@ -67,27 +67,27 @@
 	function loadCart(){
 		let content = ""
 
-		for (var productsId = 0; productsId < localStorage.length ; productsId++ ){ // 執行迴圈直到資料讀取完畢
-			let cart = JSON.parse(localStorage.getItem("products-"+ productsId)) // localStorage 購物車內容轉換成物件型態
-			productName = cart.Name
-			productPrice = cart.Price
-			productQuantity = cart.Quantity 
+		for (var pId = 0; pId < localStorage.length ; pId++ ){ // 執行迴圈直到資料讀取完畢
+			let cart = JSON.parse(localStorage.getItem("p-"+ pId)) // localStorage 購物車內容轉換成物件型態
+			pName = cart.Name
+			pPrice = cart.Price
+			pAmount = cart.Amount 
 			let html = 
 			`
-			<div id="${productsId}">
+			<div id="${pId}">
 				<div class="row" style="margin:10px 0px">
 					<div class="col-xs-4">
-						<h4 class="product-name"><strong >${productName}</strong></h4><h4><small>Product description</small></h4>
+						<h4 class="product-name"><strong >${pName}</strong></h4><h4><small>Product description</small></h4>
 					</div>
 					<div class="col-xs-6" style="margin:10px">
 						<div class="col-xs-6 text-right">
-							<h6><strong>${productPrice}</strong></h6>
+							<h6><strong>${pPrice}</strong></h6>
 						</div>
 						<div class="col-xs-4">
-							<input type="number" class="form-control input-sm" name="amount" value="${productQuantity}">
+							<input type="number" class="form-control input-sm" name="amount" value="${pAmount}">
 						</div>
 						<div class="col-xs-2">
-							<button type="button" class="btn btn-link btn-xs" onclick="removeItem(${productsId})">
+							<button type="button" class="btn btn-link btn-xs" onclick="removeItem(${pId})">
 								<span class="glyphicon glyphicon-trash"> </span>
 							</button>
 						</div>
@@ -103,26 +103,6 @@
 		amountChange()
 	}
 
-	// 移除商品
-	function removeItem(Id){
-		let rm = JSON.parse(localStorage.getItem("products-"+ Id)) // localStorage 購物車內容轉換成物件型態
-		Price = rm.Price
-		Quantity = rm.Quantity
-		
-		sum = document.getElementById('total').innerHTML
-		sum = sum - Price * Quantity
-		document.getElementById('total').innerHTML = sum
-
-		document.getElementById(Id).innerHTML = '' // 清除該列內容的動態效果
-		localStorage.removeItem('products-'+ Id)
-	}
-
-	// 清除購物車
-	function clearCart(){
-		localStorage.clear()
-		location.href = '/'
-	}
-
 	// 計算總金額
 	function Count(){
 		let sum = 0
@@ -134,6 +114,19 @@
 			sum += p * a
 		}
 		document.querySelector("#total").innerHTML = sum;
+	}
+
+	// 移除商品
+	function removeItem(pId){
+		document.getElementById(pId).innerHTML = '' // 清除該列內容的動態效果
+		localStorage.removeItem('products-'+ pId)
+		Count()
+	}
+
+	// 清除購物車
+	function clearCart(){
+		localStorage.clear()
+		location.href = '/'
 	}
 
 	// 登入提醒視窗

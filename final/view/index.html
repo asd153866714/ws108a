@@ -10,26 +10,26 @@
 
 </head>
 <body>
-    <div class="nav">
-        <ul class="p-nested-dropdowns">
-            <li><a href="/">首頁</a></li>
-            <li><a href="/cart">購物車</a></li>
 
-            <% if (userid == undefined){ %>
-            <li><a href="/register">註冊</a></li>
-            <li><a href="/login">登入</a></li>
-            <% } else { %>
-            <li>
-                <div style="overflow: hidden;"><%= userid %></div>
-                <!-- First level sub dropdown -->
-                <ul>
-                    <li><a href="/member">會員中心</a></li>
-                    <li><a href="/logout">登出</a></li>
-                </ul>
-            </li>
-            <% } %>
-        </ul>
-    </div>
+    <ul class="p-nested-dropdowns">
+        <li><a href="/">首頁</a></li>
+        <li><a href="/cart">購物車</a></li>
+
+        <% if (userid == undefined){ %>
+        <li><a href="/register">註冊</a></li>
+        <li><a href="/login">登入</a></li>
+        <% } else { %>
+        <li>
+            <div id="user"  style="overflow: hidden; "><%= userid %></div>
+            <!-- First level sub dropdown -->
+            <ul>
+                <li><a href="/member">會員中心</a></li>
+                <li><a href="/logout">登出</a></li>
+            </ul>
+        </li>
+        <% } %>
+    </ul>
+
 
     <div style="display: flex; margin:80px 100px;">
         <!-- Sidebar -->
@@ -59,7 +59,7 @@
                             <h5 class="card-title" id="Name-0">Ps4</h5>
                             <p class="card-text" id="Price-0">100</p>
                             <div class="form-group">
-                                <input type="number" class="form-control" id="Quantity-0" min="1" placeholder="數量"  >
+                                <input type="number" class="form-control" id="Amount-0" min="1" placeholder="數量"  >
                             </div>
                             <a href="#" class="btn btn-primary" onclick="addItemToCart(0)">加入</a>
                         </div>
@@ -70,7 +70,7 @@
                             <h5 class="card-title" id="Name-1">Xbox</h5>
                             <p class="card-text" id="Price-1">200</p>
                             <div class="form-group">
-                                <input type="number" class="form-control" id="Quantity-1" min="1" placeholder="數量">
+                                <input type="number" class="form-control" id="Amount-1" min="1" placeholder="數量">
                             </div>
                             <a href="#" class="btn btn-primary" onclick="addItemToCart(1)">加入</a>
                         </div>
@@ -81,7 +81,7 @@
                             <h5 class="card-title" id="Name-2">Switch</h5>
                             <p class="card-text" id="Price-2">300</p>
                             <div class="form-group">
-                                <input type="number" class="form-control"  id="Quantity-2" min="1" placeholder="數量">
+                                <input type="number" class="form-control"  id="Amount-2" min="1" placeholder="數量">
                         </div>
                         <a href="#" class="btn btn-primary" onclick="addItemToCart(2)">加入</a>
                         </div>
@@ -95,30 +95,43 @@
 <script>
     // 新增紀錄商品排序的 total
     var total = localStorage.length
-
+    let b = []
     // 新增商品到購物車
-    function addItemToCart(productId){ 
-        var productName = document.getElementById("Name-" + productId).textContent
-        var productPrice = document.getElementById("Price-" + productId).textContent
-        var productQuantity = document.getElementById("Quantity-" + productId).value
-        
-        // 驗證商品數量的值為正整數
-        var r = /^[0-9]*[1-9][0-9]*$/
-
-        if (r.test(productQuantity)){
-
-            let products = {
-                Id : total,
-                Name : productName,
-                Price : productPrice,
-                Quantity : productQuantity
-            }
+    function addItemToCart(pId){ 
+        // 驗證是否有登入
+        let u = document.getElementById("user")
+        if(u != null){
+            var user = u.innerHTML
+            var pName = document.getElementById("Name-" + pId).textContent
+            var pPrice = document.getElementById("Price-" + pId).textContent
+            var pAmount = document.getElementById("Amount-" + pId).value
             
-            localStorage.setItem('products-' + total , JSON.stringify(products)) // 轉換為 JSON 格式
-            total ++ 
+            // 驗證商品數量的值為正整數
+            var r = /^[0-9]*[1-9][0-9]*$/
+
+            if (r.test(pAmount)){
+
+                let products = {
+                    Id : total,
+                    Name : pName,
+                    Price : pPrice,
+                    Amount : pAmount
+                }
+                
+                localStorage.setItem('p-' + total , JSON.stringify(products)) // 轉換為 JSON 格式
+
+                let a = localStorage.getItem('p-' + total)
+                b.push(a)
+                console.log(b.length)
+
+                total ++ 
+            }
+            else {
+                alert("請填入有效數量")
+            }
         }
         else {
-            alert("請填入有效數量")
+            alert("請先登入")
         }
     }
 

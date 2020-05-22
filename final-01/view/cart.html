@@ -1,0 +1,160 @@
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/cart.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+
+	<title>Cart</title>
+
+</head>
+
+<!-- 判斷登入狀態 -->
+<% if (userid == undefined){ %>
+<body onload="alert_login()">
+<% } else { %>
+<body onload="loadCart()" 
+<% } %>
+
+	<input type="hidden" value="<%= c_data %>" id="data">
+
+	<div class="container" style="margin-top: 30px;">
+		<table class="table" style=" text-align: center;">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col" style="width: 5%;">#</th>
+					<th scope="col" style="width: 20%;">Name</th>
+					<th scope="col" style="width: 25%;">Price</th>
+					<th scope="col" style="width: 25%;">Amount</th>
+					<th scope="col" style="width: 25%;"></th>
+				</tr>
+			</thead>
+
+			<tbody id='body'>
+				<% for(var i=0; i < c_data.length; i++){ %>
+					<tr>
+						<th scope="row"><%= i %></th>
+						<td><%= c_data[i].name %></td>
+						<td><h6><strong><%= c_data[i].price %></strong></h6></td>
+						<td><input type="number" class="input-am" value="<%= c_data[i].amount %>"></td>
+						<td>
+							<button onclick="removeItem(1)">刪除</button>
+						</td>
+					</tr>
+				<% } %>
+
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<th scope="row"></th>
+					<td></td>
+					<td><h5 class="text-right" style="font-size:1rem;">總金額 :<a></td>
+					<td>
+						<strong id='total'>0</strong>
+					</td>
+					<td>
+						<button onclick="clearCart()">結帳</button>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		<a href="/">繼續購物</a>
+	</div>
+
+
+
+		<script>
+			// 偵測產品數量修改事件，總金額跟著變化
+			function amountChange() {
+				const am = document.querySelectorAll("input[type = 'number']")
+				for (i = 0; i < am.length; i++) {
+					am[i].addEventListener('change', function (event) {
+						Count()
+						console.log("amount", event.target.value)
+					})
+				}
+			}
+
+			function loadCart(){
+				Count()
+				amountChange()
+			}
+
+			// 由 localStorage 載入購物車資料並顯示
+			function loadCartq() {
+				let content = ""
+
+				for (var pId = 0; pId < localStorage.length; pId++) { // 執行迴圈直到資料讀取完畢
+					let cart = JSON.parse(localStorage.getItem("p-" + pId)) // localStorage 購物車內容轉換成物件型態
+					pName = cart.Name
+					pPrice = cart.Price
+					pAmount = Number(cart.Amount)
+					console.log(typeof(pAmount))
+					let html =
+					`
+						<tr id="${pId}">
+							<th scope="row">${pId}</th>
+							<td>${pName}</td>
+							<td><h6><strong>${pPrice}</strong></h6></td>
+							<td><input type="number" class="input-am" value="${pAmount}"></td>
+							<td>
+								<button onclick="removeItem(${pId})">刪除</button>
+							</td>
+						</tr>
+					`	
+					
+					content += html // 購物車新增一列內容
+				}
+				document.getElementById('body').innerHTML = content
+				Count()
+				amountChange()
+			}
+
+			// 計算總金額
+			function Count() {
+				let sum = 0
+				let price = document.querySelectorAll("h6 > strong")
+				let amount = document.querySelectorAll(".input-am")
+				console.log('test',price)
+				console.log('p.len',price.length)
+		
+				for (i = 0; i < price.length; i++) {
+					p = Number(price[i].innerHTML)
+					console.log(p)
+					a = Number(amount[i].value)
+					console.log(a)
+					sum += p * a
+				}
+				document.querySelector("#total").innerHTML = sum;
+			}
+
+			// 移除商品
+			function removeItem(pId) {
+				document.getElementById(pId).innerHTML = '' // 清除該列內容的動態效果
+				console.log("rm test")
+				localStorage.removeItem('p-' + pId)
+				Count()
+			}
+
+			// 清除購物車
+			function clearCart() {
+				localStorage.clear()
+				location.href = '/'
+			}
+
+			// 登入提醒視窗
+			function alert_login() {
+				alert('請先登入')
+				location.href = '/'
+			}
+		</script>
+	</body>
+
+</html>

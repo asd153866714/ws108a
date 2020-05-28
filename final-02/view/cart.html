@@ -38,13 +38,13 @@
 
 			<tbody id='body'>
 				<% for(var i=0; i < c_data.length; i++){ %>
-					<tr>
+					<tr id="<%= c_data[i].name %>">
 						<th scope="row"><%= i %></th>
 						<td><%= c_data[i].name %></td>
 						<td><h6><strong><%= c_data[i].price %></strong></h6></td>
-						<td><input type="number" class="input-am" value="<%= c_data[i].amount %>"></td>
+						<td><input type="number" class="<%= c_data[i].name %>" value="<%= c_data[i].amount %>"></td>
 						<td>
-							<button onclick="removeItem(1)">刪除</button>
+							<a href="#"><input type="button" class="<%= c_data[i].name %>" value="刪除"></a>
 						</td>
 					</tr>
 				<% } %>
@@ -71,76 +71,64 @@
 
 
 		<script>
-			// 偵測產品數量修改事件，總金額跟著變化
-			function amountChange() {
-				const am = document.querySelectorAll("input[type = 'number']")
-				for (i = 0; i < am.length; i++) {
-					am[i].addEventListener('change', function (event) {
-						Count()
-						console.log("amount", event.target.value)
-					})
-				}
-			}
 
 			function loadCart(){
 				Count()
 				amountChange()
 			}
 
-			// 由 localStorage 載入購物車資料並顯示
-			function loadCartq() {
-				let content = ""
+			// 偵測產品數量修改事件，總金額跟著變化
+			function amountChange() {			
+				const am = document.querySelectorAll("input[type = 'number']").forEach(item =>{
+					item.addEventListener('change', event =>{
+						console.log(item.className)
+						console.log("amount", event.target.value)
+						Count()
 
-				for (var pId = 0; pId < localStorage.length; pId++) { // 執行迴圈直到資料讀取完畢
-					let cart = JSON.parse(localStorage.getItem("p-" + pId)) // localStorage 購物車內容轉換成物件型態
-					pName = cart.Name
-					pPrice = cart.Price
-					pAmount = Number(cart.Amount)
-					console.log(typeof(pAmount))
-					let html =
-					`
-						<tr id="${pId}">
-							<th scope="row">${pId}</th>
-							<td>${pName}</td>
-							<td><h6><strong>${pPrice}</strong></h6></td>
-							<td><input type="number" class="input-am" value="${pAmount}"></td>
-							<td>
-								<button onclick="removeItem(${pId})">刪除</button>
-							</td>
-						</tr>
-					`	
-					
-					content += html // 購物車新增一列內容
-				}
-				document.getElementById('body').innerHTML = content
-				Count()
-				amountChange()
+						// 用 AJAX 傳回變動後的產品數量給 Server
+						let p_data = JSON.stringify({"name": item.className, "amount": event.target.value})
+						var r = new XMLHttpRequest();
+						r.open("POST", "updateProductAmount", true);
+						r.onreadystatechange = function () {
+							if (r.readyState != 4 || r.status != 200) return;
+						};
+						r.send(p_data);						
+					})
+				})
+
+				// 偵測刪除商品事件
+				const rm = document.querySelectorAll("input[type = 'button']").forEach(item =>{
+					item.addEventListener('click', event =>{						
+						// 用 AJAX 傳回要刪除的商品給 Server
+						let p_data = JSON.stringify({"name": item.className})
+						var r = new XMLHttpRequest();
+						r.open("POST", "removeCartItem", true);
+						r.onreadystatechange = function () {
+							if (r.readyState != 4 || r.status != 200) return;
+						};
+						r.send(p_data);
+
+						// 清除該列內容的動態效果
+						console.log("removeCartItem",item.className)
+						document.getElementById(item.className).innerHTML = '' 
+						console.log("rm test")
+						Count()
+					})
+				})
 			}
 
 			// 計算總金額
 			function Count() {
 				let sum = 0
 				let price = document.querySelectorAll("h6 > strong")
-				let amount = document.querySelectorAll(".input-am")
-				console.log('test',price)
-				console.log('p.len',price.length)
+				let amount = document.querySelectorAll("input[type = number]")
 		
 				for (i = 0; i < price.length; i++) {
 					p = Number(price[i].innerHTML)
-					console.log(p)
 					a = Number(amount[i].value)
-					console.log(a)
 					sum += p * a
 				}
 				document.querySelector("#total").innerHTML = sum;
-			}
-
-			// 移除商品
-			function removeItem(pId) {
-				document.getElementById(pId).innerHTML = '' // 清除該列內容的動態效果
-				console.log("rm test")
-				localStorage.removeItem('p-' + pId)
-				Count()
 			}
 
 			// 清除購物車
@@ -154,7 +142,7 @@
 				alert('請先登入')
 				location.href = '/'
 			}
+			
 		</script>
 	</body>
-
 </html>

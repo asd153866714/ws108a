@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>AJAX post test</h2>
+    <input type="button" onclick="test()">
+</body>
+
+<script>
+    function test() {
+    var r = new XMLHttpRequest();
+    r.open("POST", "test", true);
+    r.onreadystatechange = function () {
+      if (r.readyState != 4 || r.status != 200) return;
+      alert("Success: " + r.responseText);
+    };
+    r.send("banana=yellow");   
+}
+</script>
+</html>
+
+

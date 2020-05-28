@@ -27,21 +27,34 @@ C.getProduct = async function (user, p_data){
     return data
 }
 
-C.updateAmount = async function(user, p_data){
+C.addAmount = async function(user, p_data){
     let amount = Number(p_data.amount)   
     let old_data = await carts.findOne({"user_id": user, "name": p_data.name})
     let old_amount = Number(old_data.amount)
     let new_amount = amount + old_amount
     console.log("new_amount",new_amount)
 
-    let data = await carts.updateOne({
-        "user_id": user, "name": p_data.name},
+    let data = await carts.updateOne(
+        {"user_id": user, "name": p_data.name},
         {$set: {"user_id": user, "name": p_data.name, "price": p_data.price, "amount": new_amount}}
+    )
+    return data
+}
+
+C.updateAmount = async function (user, p_name, p_amount) {
+    let data = await carts.updateOne(
+        {"user_id": user, "name": p_name},
+        {$set: {"user_id": user, "name": p_name, "amount": p_amount}}
     )
     return data
 }
 
 C.getCart = async function(user){
     let data = await carts.find({"user_id": user})
+    return data
+}
+
+C.remove = async function(user, p_name){
+    let data = await carts.remove({"user_id": user, "name": p_name})
     return data
 }

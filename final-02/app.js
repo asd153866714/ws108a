@@ -63,7 +63,11 @@ router
 
 .get('/product', pDetails)
 
-.post('/addItemToCart', addItemToCart )
+.post('/addItemToCart', addItemToCart)
+
+.post('/updateProductAmount', updateProductAmount)
+
+.post('/removeCartItem', removeCartItem)
 
 async function signup(ctx){
     const userData = ctx.request.body // 取得頁面的資料 (帳號，密碼)
@@ -151,7 +155,7 @@ async function addItemToCart(ctx){
         let find_user = await C.getProduct(userid, p_data)
 
         if(find_user != null){ 
-            await C.updateAmount(userid, p_data)        // 更新商品數量
+            await C.addAmount(userid, p_data)        // 更新商品數量
         }
         else{
             await C.addItem(userid, p_data)             // 新增一筆資料
@@ -170,22 +174,31 @@ async function loadCart(ctx){
     let data = await C.getCart(userid)
     let c_data = []
     console.log(typeof(c_data))
+
     await data.forEach(element => {
-        // let c = {
-        //     "name": element.name,
-        //     "price": element.price,
-        //     "amount": element.amount
-        // }
-        // console.log(c)
         c_data.push(element)
     });
     console.log(c_data, typeof(c_data))
-    // let c_data = JSON.stringify(c_data1)
-    // console.log(c_data)
 
     await ctx.render('cart',{ 
         userid, c_data
     })
+}
+
+async function updateProductAmount(ctx) {
+    let userid = ctx.session.userID
+    let p_data = JSON.parse(ctx.request.body)
+    console.log('ajax test')
+    await C.updateAmount(userid, p_data.name, p_data.amount)
+    ctx.response.body = "Sever response"    
+}
+
+async function removeCartItem(ctx) {
+    let userid = ctx.session.userID
+    let p_data = JSON.parse(ctx.request.body)
+    console.log(p_data)
+    await C.remove(userid, p_data.name)
+    console.log("remove success")
 }
 
 (async function(){

@@ -3,7 +3,7 @@
 ## 使用說明
 啟動 mongodb 服務 ( 開啟mongod服務，用mongo查看資料庫 )
 
-運行 app.js
+運行 app.js 
 
 在 http://localhost:3000/ 運作
 

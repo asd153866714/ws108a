@@ -77,8 +77,9 @@
 				amountChange()
 			}
 
-			// 偵測產品數量修改事件，總金額跟著變化
-			function amountChange() {			
+			// 偵測修改數量事件，和刪除商品事件
+			function amountChange() {	
+
 				const am = document.querySelectorAll("input[type = 'number']").forEach(item =>{
 					item.addEventListener('change', event =>{
 						console.log(item.className)

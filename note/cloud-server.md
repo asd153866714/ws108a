@@ -1,9 +1,9 @@
 # 利用 Amazon Lightsail 架站
 
-基本流程 : 1. 取得雲端主機
-          2. 申請 domain name 對應到 ip
-          3. 13
-          4. 取得 SSl 憑證
+* 基本流程 : 1. 取得雲端主機
+            2. 申請 domain name 對應到 ip
+            3. 13
+            4. 取得 SSl 憑證
 
 ## 建立執行個體
 

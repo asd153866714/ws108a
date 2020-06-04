@@ -1,9 +1,11 @@
 # 利用 Amazon Lightsail 架站
 
-* 基本流程 : 1. 取得雲端主機
-            2. 申請 domain name 對應到 ip
-            3. 13
+* 基本流程 : 1. 取得雲端主機並架站
+
+            2. 申請 domain name 對應到 ip          
+            
             4. 取得 SSl 憑證
+            
 
 ## 建立執行個體
 
@@ -15,7 +17,7 @@
 
 下載對應金鑰並轉換
 
-## Domain name
+## 申請 Domain name
 
 免費 : NCTU Domain, 
 
@@ -37,7 +39,7 @@
 
 用 WinSCP 登入來傳送檔案到 xing 家目錄下
 
-## 設置 Node.js 環境
+## 設置 Node.js 架站
 
 * Node.js 
 * pm2 
@@ -45,7 +47,7 @@
 
 參考 -- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7
 
-## 防火牆設置
+### 防火牆設置
 
 參考--https://blog.gtwang.org/linux/centos-7-firewalld-command-setup-tutorial/2/
 

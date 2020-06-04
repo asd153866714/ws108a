@@ -10,6 +10,12 @@
 
 下載對應金鑰並轉換
 
+## Domain name
+
+* 申請 : 免費 NCTU Domain, 
+
+        付費 gandi, godaddy
+
 ## Linux 處理
 
 用瀏覽器 SSH 連接，或用 putty 金鑰遠端登入(username 預設為 centos)
@@ -27,5 +33,21 @@
 * Node.js 
 * pm2 
 * nginx 反向代理取得 ssl 憑證
-* 參考 -- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7
+參考--https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7
+
+## 防火牆設置
+
+參考--https://blog.gtwang.org/linux/centos-7-firewalld-command-setup-tutorial/2/
+
+開啟 80 port 並設為 perminent 避免重新啟動後跑掉
+
+### Mongodb 
+
+參考--https://tecadmin.net/install-mongodb-on-centos/
+
+啟動時注意檔案的權限問題
+
+### Apache http
+
+一開始以為
 

@@ -2,11 +2,13 @@
 
 ## 建立執行個體
 
-1. 位置選擇亞洲區的日本
+位置選擇亞洲區的日本
 
-2. CentOS 作業系統
+作業系統 CentOS
 
-3. 下載對應金鑰並轉換
+轉成固定 ip
+
+下載對應金鑰並轉換
 
 ## Linux 處理
 
@@ -18,4 +20,12 @@
 
 修改配置檔讓 ssh 可以用密碼驗證登入，參考 -- https://www.cnblogs.com/jasonxiaoqinde/p/7695171.html
 
+用 WinSCP 登入來傳送檔案到 xing 家目錄下
+
+## 設置 Node.js 環境
+
+* Node.js 
+* pm2 
+* nginx 反向代理取得 ssl 憑證
+* 參考 -- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7
 

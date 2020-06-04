@@ -26,7 +26,9 @@
 
 `useradd xing` 建立一個新的使用者 xing 
 
-修改配置檔讓 ssh 可以用密碼驗證登入，參考 -- https://www.cnblogs.com/jasonxiaoqinde/p/7695171.html
+修改配置檔讓 ssh 可以用密碼驗證登入
+
+參考 -- https://www.cnblogs.com/jasonxiaoqinde/p/7695171.html
 
 用 WinSCP 登入來傳送檔案到 xing 家目錄下
 
@@ -35,7 +37,7 @@
 * Node.js 
 * pm2 
 * nginx 反向代理取得 ssl 憑證
-參考--https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7
+參考 -- https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-centos-7
 
 ## 防火牆設置
 
@@ -45,13 +47,13 @@
 
 ### Mongodb 安裝
 
-參考--https://tecadmin.net/install-mongodb-on-centos/
+參考 -- https://tecadmin.net/install-mongodb-on-centos/
 
 啟動時注意檔案的權限問題
 
 資料庫匯入與匯出，mongodump, mongorestore
 
-參考--https://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html
+參考 -- https://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html
 
 ### Apache httpd
 

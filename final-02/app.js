@@ -69,16 +69,27 @@ router
 
 .post('/removeCartItem', removeCartItem)
 
+.get('/userDetails', userDetails)
+
+.post('/updateUser', updataUserDetails)
+
+.get('/userDetails/password', userPassword)
+
+.post('/userDetails/updatePassword', updatePassword)
+
+.get('/address', loadAddress)
+
+.get('/order', loadOrder)
+
 async function signup(ctx){
     const userData = ctx.request.body // 取得頁面的資料 (帳號，密碼)
-    console.log(userData)
+    console.log(userData,"\n")
     let data = await U.get(userData.id)
-    console.log(userData.id)
+    console.log(userData.id,"\n")
     if (userData.id && userData.password != "" ){
 
         if (data == null){ // 確認帳號是否重複
             await U.add(userData)
-            console.log("sign up success!")
             ctx.redirect('/')
         }
         else {
@@ -94,7 +105,7 @@ async function signup(ctx){
 
 async function login(ctx){
     let {id, password} = ctx.request.body
-    console.log(ctx.request.body)
+    console.log(ctx.request.body,"\n")
     let find_login =  await U.get(id)
 
     if (id && password != ""){
@@ -145,7 +156,6 @@ async function pDetails(ctx){
 }
 
 async function addItemToCart(ctx){
-    console.log("start")
     console.log(ctx.request.body, typeof(ctx.request.body))
     let userid = ctx.session.userID
 
@@ -165,7 +175,7 @@ async function addItemToCart(ctx){
         console.log('no login')
     }
 
-    console.log('stop')
+    console.log('add success!')
     ctx.body = null
 }
 
@@ -173,12 +183,11 @@ async function loadCart(ctx){
     let userid = ctx.session.userID
     let data = await C.getCart(userid)
     let c_data = []
-    console.log(typeof(c_data))
 
     await data.forEach(element => {
         c_data.push(element)
     });
-    console.log(c_data, typeof(c_data))
+    console.log(c_data)
 
     await ctx.render('cart',{ 
         userid, c_data
@@ -202,11 +211,72 @@ async function removeCartItem(ctx) {
     ctx.response.body = "hello world" // 要傳回 response 否則 Client 會 not found
 }
 
+async function userDetails(ctx) {
+    ctx.session.error_p = undefined
+    let userid = ctx.session.userID
+    let data = await U.get(userid)
+    let u_data = []
+    await u_data.push(data)
+
+    await ctx.render('userDetails',{
+        userid, u_data
+    })
+}
+
+async function updataUserDetails(ctx) {
+    let u_data = ctx.request.body
+    await U.updateDetails(u_data)
+    console.log('updateUser\n')
+    ctx.redirect('/userDetails')
+}
+
+async function userPassword(ctx) {
+    let userid = ctx.session.userID
+    let message = ctx.session.error_p
+    await ctx.render('password',{
+        userid, message
+    })
+}
+
+async function updatePassword(ctx) {
+    let userid =ctx.session.userID
+    let u_data = ctx.request.body
+    console.log(u_data)
+    let DBpassword = await U.get(userid)
+    let old_password = DBpassword.password
+    console.log(u_data.old, old_password)
+    if (u_data.old == old_password){
+        let new_password = await U.updatePassword(userid, u_data.new)
+        console.log("update password %s !\n",new_password)
+        ctx.redirect('/userDetails')
+    }
+    else {
+        ctx.session.error_p = "密碼錯誤"
+        ctx.redirect('/userDetails/password')
+    }
+}
+
+async function loadAddress(ctx) {
+    let userid = ctx.session.userID
+
+    await ctx.render('address',{
+        userid
+    })
+}
+
+async function loadOrder(ctx) {
+    let userid = ctx.session.userID
+
+    await ctx.render('order',{
+        userid
+    })
+}
+
 (async function(){
     await U.open()
     await P.open()
     await C.open()
-    app.listen(3000)
+    app.listen(3000,'0.0.0.0')
     console.log("server run at http://localhost:3000")
 }())
 

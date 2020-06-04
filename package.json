@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/asd153866714/ws108a#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "ejs": "^3.1.3",
     "fs": "0.0.1-security",
     "jquery": "^3.5.1",
@@ -30,6 +31,7 @@
     "koa-views": "^6.2.2",
     "markdown-it": "^10.0.0",
     "mongoose": "^5.9.14",
-    "soket.io": "0.0.1-security"
+    "pm2": "^4.4.0",
+    "socket.io": "^2.3.0"
   }
 }

@@ -21,11 +21,24 @@ U.add = async function (user) {
 
 U.get = async function (Id) {
     let data = await users.findOne({id:Id}) // data 取得資料庫對應的帳密
-    console.log(data)
+    console.log("mongodb get:", data,"\n")
     return data
 }
 
-U.find = async function(){
-    let data = await users.find()
+U.updateDetails = async function (u_data) {
+    console.log("mongodb update:", u_data, "\n")
+    let data = await users.updateOne(
+        {"id": u_data.id},
+        {$set: {"email": u_data.email, "phone": u_data.phone}}
+    )
+    return data
+}
+
+U.updatePassword = async function (user_id ,user_passwprd) {
+    console.log("mongodb u_password update:", user_passwprd, "\n")
+    let data = await users.updateOne(
+        {"id": user_id},
+        {$set: {"password": user_passwprd}}
+    )
     return data
 }

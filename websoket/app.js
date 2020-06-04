@@ -1,4 +1,4 @@
-var Koa = require('Koa')
+var Koa = require('koa')
 var app = new Koa()
 var fs = require('fs')
 const server = require('http').createServer(app.callback())
@@ -12,7 +12,7 @@ app.use(async function(ctx, next){
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    console.log('msg:', msg)
+    console.log('msg:', msg)  
     io.emit('chat message', msg)
   })
 })

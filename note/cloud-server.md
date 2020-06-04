@@ -12,9 +12,11 @@
 
 ## Domain name
 
-* 申請 : 免費 NCTU Domain, 
+免費 : NCTU Domain, 
 
-        付費 gandi, godaddy
+付費 : gandi, godaddy
+
+設定對應到自己的 ip 
 
 ## Linux 處理
 
@@ -41,13 +43,21 @@
 
 開啟 80 port 並設為 perminent 避免重新啟動後跑掉
 
-### Mongodb 
+### Mongodb 安裝
 
 參考--https://tecadmin.net/install-mongodb-on-centos/
 
 啟動時注意檔案的權限問題
 
-### Apache http
+資料庫匯入與匯出，mongodump, mongorestore
 
-一開始以為
+參考--https://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html
+
+### Apache httpd
+
+一開始以為要放在預設目錄下能跑網頁，就把網站目錄連結到預設目錄下，然後一直卡在權限問題，開啟了 /home 711 之後才發現搞錯了
+
+httpd 是一個網頁伺服器軟體，以類似靜態網頁的方式，呈現預設路徑下的檔案，開啟了 /home 權限後，完全暴露了家目錄的檔案
+
+關掉 httpd 服務後，清空 80 port，執行 app.js 監聽 0.0.0.0:80 就能成功了
 

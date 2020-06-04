@@ -10,8 +10,12 @@
 
 ## Linux 處理
 
-1. 用瀏覽器 SSH 連接，或用 putty 金鑰遠端登入(username 預設為 centos)
+用瀏覽器 SSH 連接，或用 putty 金鑰遠端登入(username 預設為 centos)
 
-2. `sudo su` 切換到 root 並修改密碼
+`sudo su` 切換到 root 並修改密碼
 
-3. `useradd xing` 建立一個新的使用者 xing,
+`useradd xing` 建立一個新的使用者 xing 
+
+修改配置檔讓 ssh 可以用密碼驗證登入，參考 -- https://www.cnblogs.com/jasonxiaoqinde/p/7695171.html
+
+

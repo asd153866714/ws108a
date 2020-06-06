@@ -34,5 +34,5 @@ app.js 為主程式
 
 /model : mongoDB 程式
 
-/view : 前端頁面檔案
+/views : 前端頁面檔案
 

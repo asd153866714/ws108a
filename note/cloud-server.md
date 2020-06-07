@@ -59,11 +59,13 @@
 
 參考 -- https://tecadmin.net/install-mongodb-on-centos/
 
-啟動時注意檔案的權限問題
+* 啟動時注意檔案的權限問題
 
-資料庫匯入與匯出，mongodump, mongorestore
+  參考 --  https://blog.csdn.net/weixin_44486991/article/details/88710261
 
-參考 -- https://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html
+* 資料庫匯入與匯出，mongodump, mongorestore
+
+  參考 -- https://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html
 
 ### Apache httpd
 

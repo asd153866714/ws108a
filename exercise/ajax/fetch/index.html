@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>fetch-AJAX</title>
+</head>
+
+<body>
+    <button id="fetchReadme" onclick="fetchReadme()">fetchReadme()</button>
+
+    <button id="fetchJson" onclick="fetchJson()">fetchJson()</button>
+
+    <pre id="output">  <!--<pre>: pure text-->
+        </pre>
+
+    <button id="fetchGet" onclick="fetchGet()">get</button>
+
+    <button id="fetchPost" onclick="fetchPOST()">post</button>
+
+    <script>
+        async function fetchReadme() {
+            let r = await fetch(`/README.md`)
+            let text = await r.text() // r.text() 抓取的資料用文字的方式呈現 
+            console.log('text=', text)
+            document.getElementById('output').innerHTML = text
+        }
+
+        async function fetchJson() {
+            let r = await fetch(`/ccc.json`)
+            let json = await r.json()
+            document.getElementById('output').innerHTML = JSON.stringify(json, null, 2) // Jason.stringify() 將json字串化
+        }
+
+        async function fetchGet() {
+            let r = await fetch("/README.md", { method: 'GET' })
+                .then((response) => {
+                    console.log(response)
+                    return response
+                }).catch((error) => {
+                    throw ("error")
+                })
+            let text = await r.text() // r.text() 抓取的資料用文字的方式呈現 
+            document.getElementById('output').innerHTML = text
+        }
+
+        async function fetchPOST() {
+            let r = await fetch("/post", {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: 'lovef1232e@hexschool.com',
+                    password: '12345678'
+                })
+            }).then((response) => {
+                return response.json
+            }).catch((error) => {
+                throw error
+            })
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-# 簡易登入系統
+# 購物車1.0
 
 ## 使用說明
 啟動 mongodb 服務 ( 開啟mongod服務，用mongo查看資料庫 )
@@ -8,11 +8,13 @@
 在 http://localhost:3000/ 運作
 
 ## 實現功能
-1.註冊
+1. 註冊
 
-2.登入 / 登出
+2. 登入 / 登出
 
-3.購物車
+3. 商品頁面
+
+4. 購物車
 
 ## 使用技術
 1.http 架構下的 koa 框架 (koa-session, koa-router, koa-logger, koa-static )

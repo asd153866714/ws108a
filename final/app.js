@@ -1,4 +1,4 @@
-const U = require('./user')
+const U = require('./model/user')
 const Koa = require('koa')
 var serve = require('koa-static')
 const session = require('koa-session')

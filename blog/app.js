@@ -4,6 +4,7 @@ const Koa = require('koa')
 var KoaRouter = require('koa-router')
 var koaLogger = require('koa-logger')
 const koaBody = require('koa-body')
+const serve = require('koa-static')
 
 const app = new Koa()
 const router = new KoaRouter()
@@ -11,7 +12,8 @@ const router = new KoaRouter()
 app.use(koaLogger())
 app.use(koaBody())
 
-app.use(router.routes())
+
+app.use(serve(__dirname + '/public'));
 
 router
 .get('/', list)
@@ -32,7 +34,7 @@ async function add(ctx) {
 
 async function show(ctx) {
     const id = ctx.params.id
-    console.log('id:', id)
+    console.log('id:', ctx.params)
     const post = await M.get(id)
     if (post) {
         ctx.body = await V.show(post)
@@ -56,8 +58,11 @@ async function remove(ctx){
     ctx.redirect('/')
 }
 
-(async function (){
+app.use(router.routes())
+
+async function main(){
     await M.open()
     app.listen(3000)
     console.log('Server run at http://localhost:3000')
-}())
+}
+main()

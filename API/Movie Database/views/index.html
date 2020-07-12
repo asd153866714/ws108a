@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Movie Search</title>
+</head>
+
+<body>
+    <form>
+        <input type="text" id="MovieName">
+        <input type="button" onclick="search()" value="post">
+        <input type="button" onclick="fetchTest()" value="fetch">
+    </form>
+    <script>
+        async function search() {
+            let movieName = document.getElementById('MovieName').value
+
+            let r = await fetch("/searchMovie", {
+                method: 'POST',
+                body: `${movieName}`
+            }).then((response) => {
+                return response.json()
+            }).then((data) => {
+                console.log('data: ',data)
+                return data
+            }).catch((error) => {
+                throw error
+            })
+        }
+
+        async function fetchTest() {
+            let movieName = document.getElementById('MovieName').value
+
+            await fetch("https://movie-database-imdb-alternative.p.rapidapi.com/?page=1&r=json&s=Avengers%20Endgame", {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+                    "x-rapidapi-key": "a47ea85aa6mshc16ddfdd141a240p1ee7aejsn1e2cf86d3737"
+                }
+            })
+            .then(response => {
+                return response.text
+            })
+            .then(data => {
+                console.log('data: ',JSON.stringify(data))
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    </script>
+</body>
+
+</html>

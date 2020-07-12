@@ -105,6 +105,7 @@ async function signup(ctx){
 
 async function login(ctx){
     let {id, password} = ctx.request.body
+    console.log(id)
     console.log(ctx.request.body,"\n")
     let find_login =  await U.get(id)
 

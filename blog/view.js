@@ -4,57 +4,14 @@ V.layout = function (title, content) {
     return `
     <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+            integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="/style.css">
+
         <title>${title}</title>
-        <style>
-            body {
-            padding: 80px;
-            font: 16px Helvetica, Arial;
-            }
-            
-            h1 {
-            font-size: 2em;
-            }
-            
-            h2 {
-            font-size: 1.2em;
-            }
-            
-            #posts {
-            margin: 0;
-            padding: 0;
-            }
-            
-            #posts li {
-            margin: 40px 0;
-            padding: 0;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-            list-style: none;
-            }
-            
-            #posts li:last-child {
-            border-bottom: none;
-            }
-            
-            textarea {
-            width: 500px;
-            height: 300px;
-            }
-            
-            input[type=text],
-            textarea {
-            border: 1px solid #eee;
-            border-top-color: #ddd;
-            border-left-color: #ddd;
-            border-radius: 2px;
-            padding: 15px;
-            font-size: .8em;
-            }
-            
-            input[type=text] {
-            width: 500px;
-            }
-        </style>
     </head>
     <body>
         <section id="content">${content}</section>
@@ -69,7 +26,7 @@ V.list = function (posts) {
     for (let i=0; i<posts.length; i++){
         list.push(`
         <li>
-            <h2>${ posts[i].title }</h2>
+            <h5>${ posts[i].title }</h5>
             <p>
                 <a href="/post/${posts[i]._id}">Read post</a>
             </p>
@@ -81,7 +38,7 @@ V.list = function (posts) {
       }
 
     let content = `
-    <h1>Posts</h1>
+    <h3>Posts</h3>
     <p>
         You have <strong>${posts.length}</strong> posts!
     </p>
@@ -117,7 +74,7 @@ V.new = function () {
 V.show = function (post) {
     return V.layout(post.title, 
     `
-    <h1>${post.title}</h1>
+    <h3>${post.title}</h3>
     <p>${post.body}</p>
     `)
 }
